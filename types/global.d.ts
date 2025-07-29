@@ -56,4 +56,4 @@ declare module '~/types' {
     totalAdmins: number
     totalRegularUsers: number
   }
-} 
+}

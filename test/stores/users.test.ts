@@ -8,7 +8,7 @@ const mockFetch = vi.fn()
 globalThis.$fetch = mockFetch
 
 vi.mock('#app', () => ({
-  $fetch: vi.fn()
+  $fetch: vi.fn(),
 }))
 
 describe('Users Store', () => {
@@ -18,7 +18,7 @@ describe('Users Store', () => {
 
   it('should initialize with default state', () => {
     const store = useUsersStore()
-    
+
     expect(store.users).toEqual([])
 
     expect(store.filteredUsers).toEqual([])
@@ -37,7 +37,10 @@ describe('Users Store', () => {
   it('should load users successfully', async () => {
     const store = useUsersStore()
 
-    const mockUsers = [createTestUser(), createTestUser({ id: 2, name: 'Jane Doe' })]
+    const mockUsers = [
+      createTestUser(),
+      createTestUser({ id: 2, name: 'Jane Doe' }),
+    ]
 
     const mockResponse = {
       users: mockUsers,
@@ -47,19 +50,19 @@ describe('Users Store', () => {
         totalItems: 2,
         itemsPerPage: 10,
         hasNextPage: false,
-        hasPreviousPage: false
+        hasPreviousPage: false,
       },
       filters: {
         countries: ['United States'],
         search: '',
-        country: ''
-      }
+        country: '',
+      },
     }
-    
+
     vi.mocked($fetch).mockResolvedValue(mockResponse)
-    
+
     await store.loadUsers()
-    
+
     expect(store.users).toEqual(mockUsers)
 
     expect(store.filteredUsers).toEqual(mockUsers)
@@ -80,19 +83,19 @@ describe('Users Store', () => {
         totalItems: 1,
         itemsPerPage: 10,
         hasNextPage: false,
-        hasPreviousPage: false
+        hasPreviousPage: false,
       },
       filters: {
         countries: ['United States'],
         search: 'John',
-        country: ''
-      }
+        country: '',
+      },
     }
-    
+
     vi.mocked($fetch).mockResolvedValue(mockResponse)
-    
+
     await store.setSearchQuery('John')
-    
+
     expect(store.searchQuery).toBe('John')
 
     expect(store.currentPage).toBe(1)
@@ -111,19 +114,19 @@ describe('Users Store', () => {
         totalItems: 1,
         itemsPerPage: 10,
         hasNextPage: false,
-        hasPreviousPage: false
+        hasPreviousPage: false,
       },
       filters: {
         countries: ['Canada'],
         search: '',
-        country: 'Canada'
-      }
+        country: 'Canada',
+      },
     }
-    
+
     vi.mocked($fetch).mockResolvedValue(mockResponse)
-    
+
     await store.setSelectedCountry('Canada')
-    
+
     expect(store.selectedCountry).toBe('Canada')
 
     expect(store.currentPage).toBe(1)
@@ -137,7 +140,7 @@ describe('Users Store', () => {
     store.selectedCountry = 'Canada'
 
     store.currentPage = 2
-    
+
     const mockResponse = {
       users: [],
       pagination: {
@@ -146,23 +149,23 @@ describe('Users Store', () => {
         totalItems: 0,
         itemsPerPage: 10,
         hasNextPage: false,
-        hasPreviousPage: false
+        hasPreviousPage: false,
       },
       filters: {
         countries: [],
         search: '',
-        country: ''
-      }
+        country: '',
+      },
     }
-    
+
     vi.mocked($fetch).mockResolvedValue(mockResponse)
-    
+
     await store.clearFilters()
-    
+
     expect(store.searchQuery).toBe('')
 
     expect(store.selectedCountry).toBe('')
 
     expect(store.currentPage).toBe(1)
   })
-}) 
+})

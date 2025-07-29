@@ -16,7 +16,9 @@
 
     <div class="mb-4">
       <p class="text-sm text-gray-600">
-        Showing {{ usersStore.paginatedUsers.length }} of {{ usersStore.totalItems }} users
+        {{
+          `Showing ${usersStore.paginatedUsers.length} of ${usersStore.totalItems} users`
+        }}
         <span v-if="usersStore.searchQuery || usersStore.selectedCountry">
           (filtered)
         </span>
@@ -25,7 +27,11 @@
 
     <UserTable
       :users="usersStore.paginatedUsers"
-      :empty-state-message="usersStore.searchQuery || usersStore.selectedCountry ? 'Try adjusting your search or filter criteria.' : 'No users available.'"
+      :empty-state-message="
+        usersStore.searchQuery || usersStore.selectedCountry
+          ? 'Try adjusting your search or filter criteria.'
+          : 'No users available.'
+      "
     />
 
     <BasePagination
@@ -44,23 +50,23 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  middleware: ['auth', 'admin']
-})
+  definePageMeta({
+    middleware: ['auth', 'admin'],
+  })
 
-const usersStore = useUsersStore()
+  const usersStore = useUsersStore()
 
-const searchQuery = computed({
-  get: () => usersStore.searchQuery,
-  set: (value: string) => usersStore.setSearchQuery(value)
-})
+  const searchQuery = computed({
+    get: () => usersStore.searchQuery,
+    set: (value: string) => usersStore.setSearchQuery(value),
+  })
 
-const selectedCountry = computed({
-  get: () => usersStore.selectedCountry,
-  set: (value: string) => usersStore.setSelectedCountry(value)
-})
+  const selectedCountry = computed({
+    get: () => usersStore.selectedCountry,
+    set: (value: string) => usersStore.setSelectedCountry(value),
+  })
 
-onMounted(async () => {
-  await usersStore.loadUsers()
-})
-</script> 
+  onMounted(async () => {
+    await usersStore.loadUsers()
+  })
+</script>

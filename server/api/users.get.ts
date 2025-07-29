@@ -1,7 +1,7 @@
 import users from '~/users.json'
 import type { User } from '~/types'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   try {
     const query = getQuery(event)
 
@@ -11,10 +11,11 @@ export default defineEventHandler(async (event) => {
 
     if (search && typeof search === 'string') {
       const searchLower = search.toLowerCase()
-      
-      filteredUsers = filteredUsers.filter(user => 
-        user.name.toLowerCase().includes(searchLower) ||
-        user.email.toLowerCase().includes(searchLower)
+
+      filteredUsers = filteredUsers.filter(
+        user =>
+          user.name.toLowerCase().includes(searchLower) ||
+          user.email.toLowerCase().includes(searchLower)
       )
     }
 
@@ -42,18 +43,18 @@ export default defineEventHandler(async (event) => {
         totalItems: filteredUsers.length,
         itemsPerPage: limitNum,
         hasNextPage: endIndex < filteredUsers.length,
-        hasPreviousPage: pageNum > 1
+        hasPreviousPage: pageNum > 1,
       },
       filters: {
         countries,
         search: search || '',
-        country: country || ''
-      }
+        country: country || '',
+      },
     }
   } catch (error) {
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to fetch users'
+      statusMessage: 'Failed to fetch users',
     })
   }
-}) 
+})

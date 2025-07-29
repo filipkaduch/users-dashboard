@@ -5,43 +5,44 @@ export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({
     user: null,
     isAuthenticated: false,
-    isLoading: false
+    isLoading: false,
   }),
 
   getters: {
     isAdmin: (state): boolean => {
       return state.user?.role === 'admin'
     },
-    
+
     userFullName: (state): string => {
       return state.user?.name || ''
-    }
+    },
   },
 
   actions: {
     async login(credentials: LoginCredentials): Promise<boolean> {
       this.isLoading = true
-      
+
       try {
         const { user } = await $fetch('/api/auth/login', {
           method: 'POST',
-          body: credentials
+          body: credentials,
         })
-        
+
         if (user) {
           this.user = user
 
           this.isAuthenticated = true
-          
+
           if (process.client) {
             localStorage.setItem('auth_user', JSON.stringify(user))
           }
-          
+
           return true
         }
-        
+
         return false
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Login error:', error)
         return false
       } finally {
@@ -53,7 +54,7 @@ export const useAuthStore = defineStore('auth', {
       this.user = null
 
       this.isAuthenticated = false
-      
+
       if (process.client) {
         localStorage.removeItem('auth_user')
       }
@@ -69,12 +70,13 @@ export const useAuthStore = defineStore('auth', {
 
             this.isAuthenticated = true
           } catch (error) {
+            // eslint-disable-next-line no-console
             console.error('Error parsing stored user:', error)
 
             this.logout()
           }
         }
       }
-    }
-  }
-}) 
+    },
+  },
+})

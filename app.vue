@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
-const authStore = useAuthStore()
+  const authStore = useAuthStore()
 
-onMounted(() => {
-  authStore.initializeAuth()
-})
-</script> 
+  onMounted(() => {
+    authStore.initializeAuth()
+  })
+</script>

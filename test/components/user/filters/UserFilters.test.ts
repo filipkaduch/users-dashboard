@@ -6,27 +6,33 @@ describe('UserFilters', () => {
   const defaultProps = {
     searchQuery: '',
     selectedCountry: '',
-    countries: ['United States', 'Canada', 'United Kingdom']
+    countries: ['United States', 'Canada', 'United Kingdom'],
   }
 
   it('renders search input correctly', () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
-    const searchInput = wrapper.find('input[placeholder="Search by name or email..."]')
+    const searchInput = wrapper.find(
+      'input[placeholder="Search by name or email..."]'
+    )
 
     expect(searchInput.exists()).toBe(true)
 
-    expect(searchInput.attributes('aria-label')).toBe('Search users by name or email')
+    expect(searchInput.attributes('aria-label')).toBe(
+      'Search users by name or email'
+    )
   })
 
   it('renders country filter correctly', () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
-    const countrySelect = wrapper.find('select[aria-label="Filter users by country"]')
+    const countrySelect = wrapper.find(
+      'select[aria-label="Filter users by country"]'
+    )
 
     expect(countrySelect.exists()).toBe(true)
 
@@ -35,7 +41,7 @@ describe('UserFilters', () => {
 
   it('renders all countries in dropdown', () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     const countryOptions = wrapper.findAll('option')
@@ -51,10 +57,12 @@ describe('UserFilters', () => {
 
   it('emits update:searchQuery when search input changes', async () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
-    const searchInput = wrapper.find('input[placeholder="Search by name or email..."]')
+    const searchInput = wrapper.find(
+      'input[placeholder="Search by name or email..."]'
+    )
     await searchInput.setValue('john')
 
     expect(wrapper.emitted('update:searchQuery')).toBeTruthy()
@@ -64,20 +72,24 @@ describe('UserFilters', () => {
 
   it('emits update:selectedCountry when country select changes', async () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
-    const countrySelect = wrapper.find('select[aria-label="Filter users by country"]')
+    const countrySelect = wrapper.find(
+      'select[aria-label="Filter users by country"]'
+    )
     await countrySelect.setValue('United States')
 
     expect(wrapper.emitted('update:selectedCountry')).toBeTruthy()
 
-    expect(wrapper.emitted('update:selectedCountry')?.[0]).toEqual(['United States'])
+    expect(wrapper.emitted('update:selectedCountry')?.[0]).toEqual([
+      'United States',
+    ])
   })
 
   it('emits clearFilters when clear button is clicked', async () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     const clearButton = wrapper.find('button[aria-label="Clear all filters"]')
@@ -90,11 +102,13 @@ describe('UserFilters', () => {
     const wrapper = mount(UserFilters, {
       props: {
         ...defaultProps,
-        searchQuery: 'john doe'
-      }
+        searchQuery: 'john doe',
+      },
     })
 
-    const searchInput = wrapper.find('input[placeholder="Search by name or email..."]')
+    const searchInput = wrapper.find(
+      'input[placeholder="Search by name or email..."]'
+    )
 
     expect(searchInput.element?.value).toBe('john doe')
   })
@@ -103,27 +117,34 @@ describe('UserFilters', () => {
     const wrapper = mount(UserFilters, {
       props: {
         ...defaultProps,
-        selectedCountry: 'United States'
-      }
+        selectedCountry: 'United States',
+      },
     })
 
-    const countrySelect = wrapper.find('select[aria-label="Filter users by country"]')
+    const countrySelect = wrapper.find(
+      'select[aria-label="Filter users by country"]'
+    )
 
     expect(countrySelect.element?.value).toBe('United States')
   })
 
   it('has correct CSS classes', () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
-    expect(wrapper.classes()).toEqual(['bg-white', 'shadow', 'rounded-lg', 'mb-6'])
+    expect(wrapper.classes()).toEqual([
+      'bg-white',
+      'shadow',
+      'rounded-lg',
+      'mb-6',
+    ])
     expect(wrapper.find('.px-4.py-5.sm\\:p-6').exists()).toBe(true)
   })
 
   it('renders filter title correctly', () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     expect(wrapper.text()).toContain('Filters')
@@ -132,7 +153,7 @@ describe('UserFilters', () => {
 
   it('renders search label correctly', () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     const searchLabel = wrapper.find('label[for="search"]')
@@ -141,7 +162,7 @@ describe('UserFilters', () => {
 
   it('renders country filter label correctly', () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     const countryLabel = wrapper.find('label[for="country"]')
@@ -150,10 +171,10 @@ describe('UserFilters', () => {
 
   it('renders clear filters button text correctly', () => {
     const wrapper = mount(UserFilters, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     const clearButton = wrapper.find('button[aria-label="Clear all filters"]')
     expect(clearButton.text()).toBe('Clear Filters')
   })
-}) 
+})

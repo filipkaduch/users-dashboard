@@ -16,30 +16,30 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  size?: string | number
-  viewBox?: string
-  fill?: string
-  stroke?: string
-  strokeWidth?: string | number
-  ariaHidden?: boolean
-  role?: string
-  class?: string
-}
+  interface Props {
+    size?: string | number
+    viewBox?: string
+    fill?: string
+    stroke?: string
+    strokeWidth?: string | number
+    ariaHidden?: boolean
+    role?: string
+    class?: string
+  }
 
-const props = withDefaults(defineProps<Props>(), {
-  size: 24,
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  stroke: 'currentColor',
-  strokeWidth: 2,
-  ariaHidden: true,
-  role: 'img'
-})
+  const props = withDefaults(defineProps<Props>(), {
+    size: 24,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 2,
+    ariaHidden: true,
+    role: 'img',
+  })
 
-const iconClasses = computed(() => {
-  const baseClasses = 'inline-block'
-  
-  return props.class ? `${baseClasses} ${props.class}` : baseClasses
-})
-</script> 
+  const iconClasses = computed(() => {
+    const baseClasses = 'inline-block'
+
+    return props.class ? `${baseClasses} ${props.class}` : baseClasses
+  })
+</script>

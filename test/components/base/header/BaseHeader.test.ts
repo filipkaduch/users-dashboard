@@ -6,8 +6,8 @@ describe('BaseHeader', () => {
   it('renders title correctly', () => {
     const wrapper = mount(BaseHeader, {
       props: {
-        title: 'Test Page'
-      }
+        title: 'Test Page',
+      },
     })
 
     expect(wrapper.text()).toContain('Test Page')
@@ -19,8 +19,8 @@ describe('BaseHeader', () => {
     const wrapper = mount(BaseHeader, {
       props: {
         title: 'Test Page',
-        description: 'This is a test description'
-      }
+        description: 'This is a test description',
+      },
     })
 
     expect(wrapper.text()).toContain('This is a test description')
@@ -31,8 +31,8 @@ describe('BaseHeader', () => {
   it('does not render description when not provided', () => {
     const wrapper = mount(BaseHeader, {
       props: {
-        title: 'Test Page'
-      }
+        title: 'Test Page',
+      },
     })
 
     expect(wrapper.find('p').exists()).toBe(false)
@@ -41,11 +41,11 @@ describe('BaseHeader', () => {
   it('renders actions slot when provided', () => {
     const wrapper = mount(BaseHeader, {
       props: {
-        title: 'Test Page'
+        title: 'Test Page',
       },
       slots: {
-        actions: '<button>Action Button</button>'
-      }
+        actions: '<button>Action Button</button>',
+      },
     })
 
     expect(wrapper.text()).toContain('Action Button')
@@ -56,10 +56,10 @@ describe('BaseHeader', () => {
   it('does not render actions container when no actions slot', () => {
     const wrapper = mount(BaseHeader, {
       props: {
-        title: 'Test Page'
-      }
+        title: 'Test Page',
+      },
     })
 
     expect(wrapper.find('.mt-4').exists()).toBe(false)
   })
-}) 
+})

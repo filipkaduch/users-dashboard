@@ -8,12 +8,12 @@ describe('BaseCard', () => {
     const wrapper = mount(BaseCard, {
       props: {
         title: 'Test Card',
-        description: 'This is a test description'
-      }
+        description: 'This is a test description',
+      },
     })
 
     expect(wrapper.text()).toContain('Test Card')
-    
+
     expect(wrapper.text()).toContain('This is a test description')
   })
 
@@ -22,13 +22,13 @@ describe('BaseCard', () => {
       props: {
         title: 'Test Card',
         description: 'Test description',
-        to: '/test'
+        to: '/test',
       },
       global: {
         stubs: {
-          'NuxtLink': true
-        }
-      }
+          NuxtLink: true,
+        },
+      },
     })
 
     expect(wrapper.findComponent(NuxtLink).exists()).toBe(true)
@@ -38,8 +38,8 @@ describe('BaseCard', () => {
     const wrapper = mount(BaseCard, {
       props: {
         title: 'Test Card',
-        description: 'Test description'
-      }
+        description: 'Test description',
+      },
     })
 
     expect(wrapper.find('div').exists()).toBe(true)
@@ -51,8 +51,8 @@ describe('BaseCard', () => {
     const wrapper = mount(BaseCard, {
       props: {
         title: 'Test',
-        description: 'Test description'
-      }
+        description: 'Test description',
+      },
     })
 
     const icon = wrapper.find('svg')
@@ -64,11 +64,11 @@ describe('BaseCard', () => {
     const wrapper = mount(BaseCard, {
       props: {
         title: 'Test',
-        description: 'Test description'
+        description: 'Test description',
       },
       slots: {
-        icon: '<svg class="custom-icon">Custom Icon</svg>'
-      }
+        icon: '<svg class="custom-icon">Custom Icon</svg>',
+      },
     })
 
     const customIcon = wrapper.find('.custom-icon')
@@ -77,4 +77,4 @@ describe('BaseCard', () => {
 
     expect(customIcon.text()).toBe('Custom Icon')
   })
-}) 
+})

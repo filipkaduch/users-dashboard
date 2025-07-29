@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-    <a 
-      href="#main-content" 
+    <a
+      href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50"
     >
       Skip to main content
@@ -21,13 +21,13 @@
 </template>
 
 <script setup lang="ts">
-const authStore = useAuthStore()
+  const authStore = useAuthStore()
 
-const router = useRouter()
+  const router = useRouter()
 
-const handleLogout = () => {
-  authStore.logout()
-  
-  router.push('/login')
-}
-</script> 
+  const handleLogout = () => {
+    authStore.logout()
+
+    router.push('/login')
+  }
+</script>

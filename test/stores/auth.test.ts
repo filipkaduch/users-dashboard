@@ -9,13 +9,13 @@ globalThis.$fetch = mockFetch
 describe('Auth Store', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
-    
+
     vi.clearAllMocks()
   })
 
   it('should initialize with default state', () => {
     const store = useAuthStore()
-    
+
     expect(store.user).toBeNull()
 
     expect(store.isAuthenticated).toBe(false)
@@ -29,7 +29,7 @@ describe('Auth Store', () => {
     store.user = createTestUser({ role: 'admin' })
 
     store.isAuthenticated = true
-    
+
     expect(store.isAdmin).toBe(true)
   })
 
@@ -37,7 +37,7 @@ describe('Auth Store', () => {
     const store = useAuthStore()
 
     store.user = createTestUser({ name: 'John Doe' })
-    
+
     expect(store.userFullName).toBe('John Doe')
   })
 
@@ -47,9 +47,9 @@ describe('Auth Store', () => {
     store.user = createTestUser()
 
     store.isAuthenticated = true
-    
+
     store.logout()
-    
+
     expect(store.user).toBeNull()
 
     expect(store.isAuthenticated).toBe(false)
@@ -61,14 +61,14 @@ describe('Auth Store', () => {
     const testUser = createTestUser()
 
     const mockResponse = { user: testUser, message: 'Login successful' }
-    
+
     mockFetch.mockResolvedValue(mockResponse)
-    
+
     const result = await store.login({
       email: 'john.doe@example.com',
-      password: 'password123'
+      password: 'password123',
     })
-    
+
     expect(result).toBe(true)
 
     expect(store.user).toEqual(testUser)
@@ -78,18 +78,18 @@ describe('Auth Store', () => {
 
   it('should handle failed login', async () => {
     const store = useAuthStore()
-    
+
     mockFetch.mockRejectedValue(new Error('Invalid credentials'))
-    
+
     const result = await store.login({
       email: 'invalid@example.com',
-      password: 'wrongpassword'
+      password: 'wrongpassword',
     })
-    
+
     expect(result).toBe(false)
 
     expect(store.user).toBeNull()
 
     expect(store.isAuthenticated).toBe(false)
   })
-}) 
+})

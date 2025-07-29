@@ -9,12 +9,12 @@ describe('BasePagination', () => {
     totalItems: 50,
     itemsPerPage: 10,
     hasPreviousPage: false,
-    hasNextPage: true
+    hasNextPage: true,
   }
 
   it('renders pagination when total pages > 1', () => {
     const wrapper = mount(BasePagination, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     expect(wrapper.find('.bg-white').exists()).toBe(true)
@@ -24,8 +24,8 @@ describe('BasePagination', () => {
     const wrapper = mount(BasePagination, {
       props: {
         ...defaultProps,
-        totalPages: 1
-      }
+        totalPages: 1,
+      },
     })
 
     expect(wrapper.find('.bg-white').exists()).toBe(false)
@@ -37,8 +37,8 @@ describe('BasePagination', () => {
         ...defaultProps,
         currentPage: 2,
         totalItems: 25,
-        itemsPerPage: 10
-      }
+        itemsPerPage: 10,
+      },
     })
 
     expect(wrapper.text()).toContain('Showing')
@@ -51,11 +51,13 @@ describe('BasePagination', () => {
     const wrapper = mount(BasePagination, {
       props: {
         ...defaultProps,
-        hasPreviousPage: true
-      }
+        hasPreviousPage: true,
+      },
     })
 
-    const previousButton = wrapper.find('button[aria-label="Go to previous page"]')
+    const previousButton = wrapper.find(
+      'button[aria-label="Go to previous page"]'
+    )
     await previousButton.trigger('click')
 
     expect(wrapper.emitted('previous')).toBeTruthy()
@@ -65,8 +67,8 @@ describe('BasePagination', () => {
     const wrapper = mount(BasePagination, {
       props: {
         ...defaultProps,
-        hasNextPage: true
-      }
+        hasNextPage: true,
+      },
     })
 
     const nextButton = wrapper.find('button[aria-label="Go to next page"]')
@@ -80,8 +82,8 @@ describe('BasePagination', () => {
       props: {
         ...defaultProps,
         currentPage: 1,
-        totalPages: 3
-      }
+        totalPages: 3,
+      },
     })
 
     const pageButton = wrapper.find('button[aria-label="Go to page 2"]')
@@ -95,11 +97,13 @@ describe('BasePagination', () => {
     const wrapper = mount(BasePagination, {
       props: {
         ...defaultProps,
-        hasPreviousPage: false
-      }
+        hasPreviousPage: false,
+      },
     })
 
-    const previousButton = wrapper.find('button[aria-label="Go to previous page"]')
+    const previousButton = wrapper.find(
+      'button[aria-label="Go to previous page"]'
+    )
     expect(previousButton.attributes('disabled')).toBeDefined()
   })
 
@@ -107,8 +111,8 @@ describe('BasePagination', () => {
     const wrapper = mount(BasePagination, {
       props: {
         ...defaultProps,
-        hasNextPage: false
-      }
+        hasNextPage: false,
+      },
     })
 
     const nextButton = wrapper.find('button[aria-label="Go to next page"]')
@@ -119,8 +123,8 @@ describe('BasePagination', () => {
     const wrapper = mount(BasePagination, {
       props: {
         ...defaultProps,
-        currentPage: 2
-      }
+        currentPage: 2,
+      },
     })
 
     const currentPageButton = wrapper.find('button[aria-current="page"]')
@@ -130,19 +134,23 @@ describe('BasePagination', () => {
 
   it('shows mobile pagination on small screens', () => {
     const wrapper = mount(BasePagination, {
-      props: defaultProps
+      props: defaultProps,
     })
 
-    const mobilePagination = wrapper.find('.flex-1.flex.justify-between.sm\\:hidden')
+    const mobilePagination = wrapper.find(
+      '.flex-1.flex.justify-between.sm\\:hidden'
+    )
     expect(mobilePagination.exists()).toBe(true)
   })
 
   it('shows desktop pagination on large screens', () => {
     const wrapper = mount(BasePagination, {
-      props: defaultProps
+      props: defaultProps,
     })
 
-    const desktopPagination = wrapper.find('.hidden.sm\\:flex-1.sm\\:flex.sm\\:items-center.sm\\:justify-between')
+    const desktopPagination = wrapper.find(
+      '.hidden.sm\\:flex-1.sm\\:flex.sm\\:items-center.sm\\:justify-between'
+    )
     expect(desktopPagination.exists()).toBe(true)
   })
 
@@ -151,12 +159,12 @@ describe('BasePagination', () => {
       props: {
         ...defaultProps,
         currentPage: 3,
-        totalPages: 7
-      }
+        totalPages: 7,
+      },
     })
 
     // Should show pages around current page (1, 2, 3, 4, 5, 7)
     const pageButtons = wrapper.findAll('button[aria-label^="Go to page"]')
     expect(pageButtons.length).toBeGreaterThan(0)
   })
-}) 
+})

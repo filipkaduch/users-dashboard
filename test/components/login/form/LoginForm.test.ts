@@ -6,16 +6,16 @@ describe('LoginForm', () => {
   const defaultProps = {
     form: {
       email: '',
-      password: ''
+      password: '',
     },
     errors: {},
     isLoading: false,
-    loginError: ''
+    loginError: '',
   }
 
   it('renders login form correctly', () => {
     const wrapper = mount(LoginForm, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     expect(wrapper.text()).toContain('Sign in to your account')
@@ -33,9 +33,9 @@ describe('LoginForm', () => {
         ...defaultProps,
         form: {
           email: 'test@example.com',
-          password: 'password123'
-        }
-      }
+          password: 'password123',
+        },
+      },
     })
 
     const emailInput = wrapper.find('input[type="email"]')
@@ -49,7 +49,7 @@ describe('LoginForm', () => {
 
   it('emits submit event with form data', async () => {
     const wrapper = mount(LoginForm, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     const emailInput = wrapper.find('input[type="email"]')
@@ -66,18 +66,20 @@ describe('LoginForm', () => {
 
     expect(wrapper.emitted('submit')).toBeTruthy()
 
-    expect(wrapper.emitted('submit')?.[0]).toEqual([{
-      email: 'test@example.com',
-      password: 'password123'
-    }])
+    expect(wrapper.emitted('submit')?.[0]).toEqual([
+      {
+        email: 'test@example.com',
+        password: 'password123',
+      },
+    ])
   })
 
   it('shows loading state when isLoading is true', () => {
     const wrapper = mount(LoginForm, {
       props: {
         ...defaultProps,
-        isLoading: true
-      }
+        isLoading: true,
+      },
     })
 
     const submitButton = wrapper.find('button[type="submit"]')
@@ -91,8 +93,8 @@ describe('LoginForm', () => {
     const wrapper = mount(LoginForm, {
       props: {
         ...defaultProps,
-        isLoading: true
-      }
+        isLoading: true,
+      },
     })
 
     const emailInput = wrapper.find('input[type="email"]')
@@ -110,9 +112,9 @@ describe('LoginForm', () => {
         ...defaultProps,
         errors: {
           email: 'Email is required',
-          password: 'Password is required'
-        }
-      }
+          password: 'Password is required',
+        },
+      },
     })
 
     expect(wrapper.text()).toContain('Email is required')
@@ -124,8 +126,8 @@ describe('LoginForm', () => {
     const wrapper = mount(LoginForm, {
       props: {
         ...defaultProps,
-        loginError: 'Invalid credentials'
-      }
+        loginError: 'Invalid credentials',
+      },
     })
 
     expect(wrapper.text()).toContain('Invalid credentials')
@@ -135,7 +137,7 @@ describe('LoginForm', () => {
 
   it('has correct form attributes', () => {
     const wrapper = mount(LoginForm, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     const form = wrapper.find('form')
@@ -145,7 +147,7 @@ describe('LoginForm', () => {
 
   it('has correct input attributes', () => {
     const wrapper = mount(LoginForm, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     const emailInput = wrapper.find('input[type="email"]')
@@ -163,7 +165,7 @@ describe('LoginForm', () => {
 
   it('shows sample credentials section', () => {
     const wrapper = mount(LoginForm, {
-      props: defaultProps
+      props: defaultProps,
     })
 
     expect(wrapper.text()).toContain('Sample Credentials')
@@ -177,8 +179,8 @@ describe('LoginForm', () => {
     const wrapper = mount(LoginForm, {
       props: {
         ...defaultProps,
-        isLoading: true
-      }
+        isLoading: true,
+      },
     })
 
     const spinner = wrapper.find('svg.animate-spin')
@@ -191,9 +193,9 @@ describe('LoginForm', () => {
       props: {
         ...defaultProps,
         errors: {
-          email: 'Email error'
-        }
-      }
+          email: 'Email error',
+        },
+      },
     })
 
     const emailInput = wrapper.find('input[type="email"]')
@@ -202,4 +204,4 @@ describe('LoginForm', () => {
 
     expect(emailInput.attributes('aria-describedby')).toBe('email-error')
   })
-}) 
+})

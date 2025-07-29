@@ -33,4 +33,4 @@ export interface DashboardStats {
   totalUsers: number
   totalAdmins: number
   totalRegularUsers: number
-} 
+}

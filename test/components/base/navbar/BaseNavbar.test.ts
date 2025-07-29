@@ -6,18 +6,18 @@ import { createTestNavigationItems } from '~/test/setup'
 
 vi.mock('#app', () => ({
   useRoute: () => ({
-    path: '/'
+    path: '/',
   }),
-  navigateTo: vi.fn()
+  navigateTo: vi.fn(),
 }))
 
 const createGlobalMocks = () => ({
   mocks: {
-    $route: { path: '/' }
+    $route: { path: '/' },
   },
   stubs: {
-    'NuxtLink': true
-  }
+    NuxtLink: true,
+  },
 })
 
 describe('BaseNavbar', () => {
@@ -30,9 +30,9 @@ describe('BaseNavbar', () => {
       props: {
         isAuthenticated: true,
         isAdmin: true,
-        navigationItems: createTestNavigationItems()
+        navigationItems: createTestNavigationItems(),
       },
-      global: createGlobalMocks()
+      global: createGlobalMocks(),
     })
 
     expect(wrapper.text()).toContain('Welcome,  Logout Open main menu')
@@ -43,9 +43,9 @@ describe('BaseNavbar', () => {
       props: {
         isAuthenticated: true,
         isAdmin: false,
-        navigationItems: createTestNavigationItems()
+        navigationItems: createTestNavigationItems(),
       },
-      global: createGlobalMocks()
+      global: createGlobalMocks(),
     })
 
     expect(wrapper.text()).toContain('Welcome,  Logout Open main menu')
@@ -57,9 +57,9 @@ describe('BaseNavbar', () => {
     const wrapper = mount(BaseNavbar, {
       props: {
         isAuthenticated: true,
-        userFullName: 'John Doe'
+        userFullName: 'John Doe',
       },
-      global: createGlobalMocks()
+      global: createGlobalMocks(),
     })
 
     expect(wrapper.text()).toContain('Welcome, John Doe')
@@ -69,12 +69,14 @@ describe('BaseNavbar', () => {
     const wrapper = mount(BaseNavbar, {
       props: {
         isAuthenticated: true,
-        userFullName: 'John Doe'
+        userFullName: 'John Doe',
       },
-      global: createGlobalMocks()
+      global: createGlobalMocks(),
     })
 
-    const logoutButton = wrapper.find('button[aria-label="Logout from account"]')
+    const logoutButton = wrapper.find(
+      'button[aria-label="Logout from account"]'
+    )
 
     expect(logoutButton.exists()).toBe(true)
   })
@@ -83,12 +85,14 @@ describe('BaseNavbar', () => {
     const wrapper = mount(BaseNavbar, {
       props: {
         isAuthenticated: true,
-        userFullName: 'John Doe'
+        userFullName: 'John Doe',
       },
-      global: createGlobalMocks()
+      global: createGlobalMocks(),
     })
 
-    const logoutButton = wrapper.find('button[aria-label="Logout from account"]')
+    const logoutButton = wrapper.find(
+      'button[aria-label="Logout from account"]'
+    )
 
     await logoutButton.trigger('click')
 
@@ -98,9 +102,9 @@ describe('BaseNavbar', () => {
   it('toggles mobile menu when hamburger button is clicked', async () => {
     const wrapper = mount(BaseNavbar, {
       props: {
-        isAuthenticated: false
+        isAuthenticated: false,
       },
-      global: createGlobalMocks()
+      global: createGlobalMocks(),
     })
 
     const hamburgerButton = wrapper.find('button[aria-controls="mobile-menu"]')
@@ -115,4 +119,4 @@ describe('BaseNavbar', () => {
 
     expect(hamburgerButton.attributes('aria-expanded')).toBe('false')
   })
-}) 
+})

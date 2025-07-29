@@ -12,7 +12,7 @@ describe('UserTable', () => {
       role: 'admin',
       country: 'United States',
       createdAt: '2023-01-15T10:30:00Z',
-      password: 'password123'
+      password: 'password123',
     },
     {
       id: 2,
@@ -21,15 +21,15 @@ describe('UserTable', () => {
       role: 'user',
       country: 'Canada',
       createdAt: '2023-02-20T14:45:00Z',
-      password: 'password123'
-    }
+      password: 'password123',
+    },
   ] as User[]
 
   it('renders table headers correctly', () => {
     const wrapper = mount(UserTable, {
       props: {
-        users: mockUsers
-      }
+        users: mockUsers,
+      },
     })
 
     expect(wrapper.text()).toContain('User')
@@ -44,8 +44,8 @@ describe('UserTable', () => {
   it('renders user data correctly', () => {
     const wrapper = mount(UserTable, {
       props: {
-        users: mockUsers
-      }
+        users: mockUsers,
+      },
     })
 
     expect(wrapper.text()).toContain('John Doe')
@@ -60,8 +60,8 @@ describe('UserTable', () => {
   it('renders user avatar with first letter', () => {
     const wrapper = mount(UserTable, {
       props: {
-        users: mockUsers
-      }
+        users: mockUsers,
+      },
     })
 
     const avatar = wrapper.find('.h-10.w-10.rounded-full')
@@ -74,8 +74,8 @@ describe('UserTable', () => {
   it('applies correct role badge classes', () => {
     const wrapper = mount(UserTable, {
       props: {
-        users: mockUsers
-      }
+        users: mockUsers,
+      },
     })
 
     const adminBadge = wrapper.find('.bg-blue-100.text-blue-800')
@@ -83,27 +83,27 @@ describe('UserTable', () => {
     const userBadge = wrapper.find('.bg-gray-100.text-gray-800')
 
     expect(adminBadge.exists()).toBe(true)
-    
+
     expect(userBadge.exists()).toBe(true)
   })
 
   it('formats date correctly', () => {
     const wrapper = mount(UserTable, {
       props: {
-        users: mockUsers
-      }
+        users: mockUsers,
+      },
     })
 
     expect(wrapper.text()).toContain('Jan')
-    
+
     expect(wrapper.text()).toContain('Feb')
   })
 
   it('shows empty state when no users', () => {
     const wrapper = mount(UserTable, {
       props: {
-        users: []
-      }
+        users: [],
+      },
     })
 
     expect(wrapper.text()).toContain('No users found')
@@ -114,8 +114,8 @@ describe('UserTable', () => {
     const wrapper = mount(UserTable, {
       props: {
         users: [],
-        emptyStateMessage: 'Custom empty message'
-      }
+        emptyStateMessage: 'Custom empty message',
+      },
     })
 
     expect(wrapper.text()).toContain('Custom empty message')
@@ -124,8 +124,8 @@ describe('UserTable', () => {
   it('has correct table structure', () => {
     const wrapper = mount(UserTable, {
       props: {
-        users: mockUsers
-      }
+        users: mockUsers,
+      },
     })
 
     expect(wrapper.find('table').exists()).toBe(true)
@@ -142,8 +142,8 @@ describe('UserTable', () => {
   it('renders correct number of rows', () => {
     const wrapper = mount(UserTable, {
       props: {
-        users: mockUsers
-      }
+        users: mockUsers,
+      },
     })
 
     const rows = wrapper.findAll('tbody tr')
@@ -153,8 +153,8 @@ describe('UserTable', () => {
   it('has hover effect on rows', () => {
     const wrapper = mount(UserTable, {
       props: {
-        users: mockUsers
-      }
+        users: mockUsers,
+      },
     })
 
     const rows = wrapper.findAll('tbody tr')
@@ -167,8 +167,8 @@ describe('UserTable', () => {
   it('renders user information in correct structure', () => {
     const wrapper = mount(UserTable, {
       props: {
-        users: [mockUsers[0]]
-      }
+        users: [mockUsers[0]],
+      },
     })
 
     const userCell = wrapper.find('tbody tr td:first-child')
@@ -181,17 +181,17 @@ describe('UserTable', () => {
   it('handles different user roles correctly', () => {
     const usersWithDifferentRoles = [
       { ...mockUsers[0], role: 'admin' },
-      { ...mockUsers[1], role: 'user' }
+      { ...mockUsers[1], role: 'user' },
     ]
 
     const wrapper = mount(UserTable, {
       props: {
-        users: usersWithDifferentRoles
-      }
+        users: usersWithDifferentRoles,
+      },
     })
 
     expect(wrapper.text()).toContain('admin')
 
     expect(wrapper.text()).toContain('user')
   })
-}) 
+})

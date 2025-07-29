@@ -1,5 +1,5 @@
 <template>
-  <nav 
+  <nav
     class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40"
     role="navigation"
     aria-label="Main navigation"
@@ -7,8 +7,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <div class="flex-shrink-0">
-          <NuxtLink 
-            to="/" 
+          <NuxtLink
+            to="/"
             class="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors"
             aria-label="Go to home page"
           >
@@ -76,13 +76,10 @@
       </div>
     </div>
 
-    <div
-      v-show="mobileMenuOpen"
-      class="md:hidden"
-      id="mobile-menu"
-      role="menu"
-    >
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+    <div v-show="mobileMenuOpen" class="md:hidden" id="mobile-menu" role="menu">
+      <div
+        class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200"
+      >
         <NuxtLink
           v-for="item in navigationItems"
           :key="item.path"
@@ -100,57 +97,60 @@
 </template>
 
 <script setup lang="ts">
-interface NavigationItem {
-  path: string
-  label: string
-  requiresAuth?: boolean
-  requiresAdmin?: boolean
-}
+  interface NavigationItem {
+    path: string
+    label: string
+    requiresAuth?: boolean
+    requiresAdmin?: boolean
+  }
 
-interface Props {
-  brandName?: string
-  navigationItems?: NavigationItem[]
-  isAuthenticated?: boolean
-  userFullName?: string
-  isAdmin?: boolean
-}
+  interface Props {
+    brandName?: string
+    navigationItems?: NavigationItem[]
+    isAuthenticated?: boolean
+    userFullName?: string
+    isAdmin?: boolean
+  }
 
-const props = withDefaults(defineProps<Props>(), {
-  brandName: 'Users Dashboard',
-  navigationItems: () => [
-    { path: '/', label: 'Dashboard' },
-    { path: '/users', label: 'Users', requiresAdmin: true }
-  ],
-  isAuthenticated: false,
-  userFullName: '',
-  isAdmin: false
-})
-
-defineEmits<{
-  logout: []
-}>()
-
-const mobileMenuOpen = ref(false)
-
-const toggleMobileMenu = () => {
-  mobileMenuOpen.value = !mobileMenuOpen.value
-}
-
-const closeMobileMenu = () => {
-  mobileMenuOpen.value = false
-}
-
-const filteredNavigationItems = computed(() => {
-  return props.navigationItems.filter(item => {
-    if (item.requiresAuth && !props.isAuthenticated) return false
-
-    if (item.requiresAdmin && !props.isAdmin) return false
-
-    return true
+  const props = withDefaults(defineProps<Props>(), {
+    brandName: 'Users Dashboard',
+    navigationItems: () => [
+      { path: '/', label: 'Dashboard' },
+      { path: '/users', label: 'Users', requiresAdmin: true },
+    ],
+    isAuthenticated: false,
+    userFullName: '',
+    isAdmin: false,
   })
-})
 
-watch(() => useRoute().path, () => {
-  closeMobileMenu()
-})
-</script> 
+  defineEmits<{
+    logout: []
+  }>()
+
+  const mobileMenuOpen = ref(false)
+
+  const toggleMobileMenu = () => {
+    mobileMenuOpen.value = !mobileMenuOpen.value
+  }
+
+  const closeMobileMenu = () => {
+    mobileMenuOpen.value = false
+  }
+
+  const filteredNavigationItems = computed(() => {
+    return props.navigationItems.filter(item => {
+      if (item.requiresAuth && !props.isAuthenticated) return false
+
+      if (item.requiresAdmin && !props.isAdmin) return false
+
+      return true
+    })
+  })
+
+  watch(
+    () => useRoute().path,
+    () => {
+      closeMobileMenu()
+    }
+  )
+</script>

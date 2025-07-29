@@ -32,7 +32,7 @@ export const useUsersStore = defineStore('users', {
     hasPreviousPage: false,
     searchQuery: '',
     selectedCountry: '',
-    countries: []
+    countries: [],
   }),
 
   getters: {
@@ -45,29 +45,32 @@ export const useUsersStore = defineStore('users', {
     async loadUsers(): Promise<void> {
       try {
         const params = new URLSearchParams()
-        
+
         if (this.searchQuery) {
           params.append('search', this.searchQuery)
         }
-        
+
         if (this.selectedCountry) {
           params.append('country', this.selectedCountry)
         }
-        
+
         params.append('page', this.currentPage.toString())
 
         params.append('limit', this.itemsPerPage.toString())
 
-        const response = await $fetch<UsersResponse>(`/api/users?${params.toString()}`)
+        const response = await $fetch<UsersResponse>(
+          `/api/users?${params.toString()}`
+        )
 
         this.setPagination(response.pagination)
-        
+
         this.users = response.users
 
         this.filteredUsers = response.users
 
         this.countries = response.filters.countries
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Error loading users:', error)
       }
     },
@@ -132,6 +135,6 @@ export const useUsersStore = defineStore('users', {
       this.currentPage = 1
 
       await this.loadUsers()
-    }
-  }
-}) 
+    },
+  },
+})
